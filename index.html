@@ -1,0 +1,129 @@
+<div id="kata" class="page">
+  <div class="content">
+    <section class="section">
+      <h2>Official Kata Library</h2>
+      
+      <div style="margin-bottom: 2rem; text-align: center;">
+        <input type="text" id="kataSearch" onkeyup="filterKatas()" placeholder="Search for a Kata (e.g. Heian, Bassai...)" 
+               style="width: 80%; max-width: 400px; padding: 12px; border-radius: 25px; border: 2px solid #2563eb; background: #1a1a1a; color: white;">
+      </div>
+
+      <div style="position: relative; padding-bottom: 56.25%; height: 0; margin-bottom: 30px; border-radius: 12px; overflow: hidden; border: 3px solid #2563eb;">
+        <iframe id="kataPlayer" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" src="https://www.youtube.com/embed/Q968r3U0KlM" frameborder="0" allowfullscreen></iframe>
+      </div>
+
+      <div class="grid" id="kataGrid">
+        <div class="card kata-folder">
+          <h3>Beginner</h3>
+          <button onclick="playV('yMlH5xWn2W4')" class="cta-button kata-btn">Kihon Kata 1-5</button>
+          <button onclick="playV('Q968r3U0KlM')" class="cta-button kata-btn">Heian Shodan</button>
+          <button onclick="playV('V_K34CNNY5M')" class="cta-button kata-btn">Heian Nidan</button>
+        </div>
+        <div class="card kata-folder">
+          <h3>Intermediate</h3>
+          <button onclick="playV('F_0m-NfN8k8')" class="cta-button kata-btn">Heian Sandan</button>
+          <button onclick="playV('XpT60T6_U78')" class="cta-button kata-btn">Heian Yondan</button>
+          <button onclick="playV('66Gmhx9Zrv4')" class="cta-button kata-btn">Bassai Dai</button>
+        </div>
+        <div class="card kata-folder">
+          <h3>Advanced</h3>
+          <button onclick="playV('70ZSoFH26Kw')" class="cta-button kata-btn">Aoyagi</button>
+          <button onclick="playV('24oTjB0f4C4')" class="cta-button kata-btn">Matsukaze</button>
+          <button onclick="playV('YMr7gAQKOTE')" class="cta-button kata-btn">Seienchin</button>
+        </div>
+        <div class="card kata-folder">
+          <h3>Black Belt</h3>
+          <button onclick="playV('NwYhpb9ZESI')" class="cta-button kata-btn">Unshu</button>
+          <button onclick="playV('uC2-qE8z_kM')" class="cta-button kata-btn">Nipaipo</button>
+          <button onclick="playV('l6vXn6V_y_0')" class="cta-button kata-btn">Kururunfa</button>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<div id="register" class="page">
+  <div class="content">
+    <section class="section">
+      <h2>Registration</h2>
+      <div class="card" style="max-width: 500px; margin: 0 auto; border-top: 4px solid #fbbf24;">
+        <form id="regForm">
+          <input type="text" id="regName" placeholder="Full Name" required style="width:100%; margin-bottom:10px; padding:10px;">
+          <select id="regLoc" style="width:100%; margin-bottom:10px; padding:10px;">
+            <option value="Columbus">Columbus HQ</option>
+            <option value="Reynoldsburg">Reynoldsburg</option>
+            <option value="Cincinnati">Cincinnati</option>
+            <option value="Fairfield">Fairfield</option>
+            <option value="Florence">Florence, KY</option>
+          </select>
+          <input type="tel" id="regPhone" placeholder="Phone Number" required style="width:100%; margin-bottom:10px; padding:10px;">
+          <button type="button" onclick="handleRegistration()" class="submit-button" style="width:100%;">Send Registration</button>
+        </form>
+        <p id="form-status" style="display:none; color:#fbbf24; text-align:center; margin-top:10px;">Sent! Osu.</p>
+      </div>
+    </section>
+  </div>
+</div>
+
+<div id="contact" class="page">
+  <div class="content">
+    <section class="section">
+      <h2>Dojo Locations</h2>
+      <div class="grid">
+        <div class="card"><h3>Columbus</h3><p>1575 E Dublin Granville Rd</p><a href="https://maps.google.com/?q=1575+E+Dublin+Granville+Rd+Columbus+OH" target="_blank" class="cta-button">GPS</a></div>
+        <div class="card"><h3>Reynoldsburg</h3><p>6220 E Livingston Ave</p><a href="https://maps.google.com/?q=6220+E+Livingston+Ave+Reynoldsburg+OH" target="_blank" class="cta-button">GPS</a></div>
+        <div class="card"><h3>Cincinnati</h3><p>7198 Pippin Rd</p><a href="https://maps.google.com/?q=7198+Pippin+Rd+Cincinnati+OH" target="_blank" class="cta-button">GPS</a></div>
+        <div class="card"><h3>Fairfield</h3><p>6435 Dixie Hwy</p><a href="https://maps.google.com/?q=6435+Dixie+Hwy+Fairfield+OH" target="_blank" class="cta-button">GPS</a></div>
+        <div class="card"><h3>Florence</h3><p>7705 US-42, KY</p><a href="https://maps.google.com/?q=7705+US-42+Florence+KY" target="_blank" class="cta-button">GPS</a></div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<div id="about" class="page"><div class="content"><section class="section"><h2>About ISKA</h2><p>Traditional Shito Ryu lineage under Kenwa Mabuni.</p></section></div></div>
+<div id="instructor" class="page"><div class="content"><section class="section"><h2>Instructors</h2><p>Master Jogendra Paswan (8th Dan)</p></section></div></div>
+<div id="belts" class="page"><div class="content"><section class="section"><h2>Belt System</h2><p>White to Black Belt Progression.</p></section></div></div>
+<div id="training" class="page"><div class="content"><section class="section"><h2>Schedule</h2><p>Youth: 5:30pm | Adults: 6:30pm</p></section></div></div>
+<div id="pricing" class="page"><div class="content"><section class="section"><h2>Pricing</h2><p>Monthly: $125 - $165</p></section></div></div>
+<div id="achievements" class="page"><div class="content"><section class="section"><h2>Achievements</h2><p>Regional Champions & Certified Dan Ranks.</p></section></div></div>
+<div id="tournament" class="page"><div class="content"><section class="section"><h2>Tournaments</h2><p>Next Event: ISKA Open.</p></section></div></div>
+<div id="gallery" class="page"><div class="content"><section class="section"><h2>Gallery</h2><p>Dojo highlights and ceremonies.</p></section></div></div>
+
+<script>
+  // Filter Kata Buttons via Search Box
+  function filterKatas() {
+    let input = document.getElementById('kataSearch').value.toLowerCase();
+    let buttons = document.getElementsByClassName('kata-btn');
+    for (let i = 0; i < buttons.length; i++) {
+      if (buttons[i].innerText.toLowerCase().includes(input)) {
+        buttons[i].style.display = "";
+      } else {
+        buttons[i].style.display = "none";
+      }
+    }
+  }
+
+  // Play Video
+  function playV(id) {
+    document.getElementById('kataPlayer').src = "https://www.youtube.com/embed/" + id + "?autoplay=1";
+  }
+
+  // Dual Registration Trigger
+  function handleRegistration() {
+    const name = document.getElementById('regName').value;
+    const loc = document.getElementById('regLoc').value;
+    const phone = document.getElementById('regPhone').value;
+    if(!name || !phone) { alert("Please enter name and phone."); return; }
+
+    const msg = `ISKA Registration:%0AName: ${name}%0ALocation: ${loc}%0APhone: ${phone}`;
+    
+    // Email
+    window.open(`mailto:usakarate12@gmail.com?subject=New Student&body=${msg}`);
+    
+    // SMS
+    setTimeout(() => {
+      window.location.href = `sms:6147792399&body=${msg}`;
+      document.getElementById('form-status').style.display = 'block';
+    }, 1000);
+  }
+</script>
