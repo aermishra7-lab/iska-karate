@@ -3,142 +3,124 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ISKA Digital Portal</title>
+    <title>ISKA Master App</title>
     <style>
-        :root { --gold: #fbbf24; --blue: #2563eb; --dark: #000000; --glass: rgba(30, 30, 30, 0.98); }
+        :root { --gold: #fbbf24; --blue: #2563eb; --dark: #000000; --glass: rgba(20, 20, 20, 0.98); }
         * { box-sizing: border-box; font-family: 'Arial Black', sans-serif; }
         body { background: var(--dark); color: white; margin: 0; padding: 20px; text-align: center; }
 
-        h1 { color: var(--gold); font-size: 3rem; margin-top: 40px; }
-        .sub-header { color: var(--blue); letter-spacing: 2px; margin-bottom: 40px; }
+        h1 { color: var(--gold); font-size: 3rem; margin: 20px 0 5px 0; }
+        .sub { color: var(--blue); letter-spacing: 3px; margin-bottom: 30px; font-size: 1rem; }
 
-        /* MAIN MENU GRID */
+        /* MENU GRID */
         .menu-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            grid-template-columns: repeat(2, 1fr);
             gap: 15px;
-            max-width: 800px;
+            max-width: 600px;
             margin: 0 auto;
         }
 
         .menu-btn {
-            background: #1a1a1a;
+            background: #111;
             border: 2px solid #333;
             color: white;
-            padding: 25px 10px;
+            padding: 30px 10px;
             border-radius: 15px;
             font-size: 1.1rem;
             cursor: pointer;
-            transition: 0.3s;
+            text-transform: uppercase;
         }
 
-        .menu-btn:hover { border-color: var(--blue); background: #222; transform: scale(1.02); }
+        .menu-btn:hover { border-color: var(--gold); background: #1a1a1a; }
 
-        /* POPUP (MODAL) STYLING */
+        /* POPUP SYSTEM */
         .popup {
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             background: var(--glass);
-            z-index: 2000;
+            z-index: 9999;
             overflow-y: auto;
             padding: 40px 20px;
         }
 
-        .popup-content { max-width: 900px; margin: 0 auto; text-align: left; }
+        .popup-content { max-width: 800px; margin: 0 auto; text-align: left; }
         
         .close-btn {
             position: sticky; top: 0; float: right;
-            background: red; color: white; border: none;
-            padding: 15px 25px; font-size: 1.5rem; border-radius: 10px; cursor: pointer;
+            background: #ff4444; color: white; border: none;
+            padding: 15px 20px; font-size: 1.2rem; border-radius: 10px; cursor: pointer;
         }
 
-        /* KATA LIBRARY BOXES */
-        #kataSearch {
-            width: 100%; padding: 20px; font-size: 1.5rem; 
-            border-radius: 10px; border: 3px solid var(--blue); margin-bottom: 20px;
-        }
-        .video-box { border: 5px solid var(--gold); border-radius: 15px; overflow: hidden; margin-bottom: 20px; }
-        .kata-list button { 
-            display: block; width: 100%; padding: 15px; margin: 5px 0; 
-            background: #333; color: white; border: none; border-radius: 5px; text-align: left;
-        }
+        h2 { color: var(--gold); font-size: 2.5rem; border-bottom: 2px solid var(--blue); padding-bottom: 10px; }
+        p, li { font-size: 1.4rem; line-height: 1.6; color: #ddd; }
 
-        /* TEXT SIZES */
-        p, li { font-size: 1.3rem; line-height: 1.6; }
-        h2 { color: var(--gold); font-size: 2.5rem; }
+        /* KATA LIBRARY SPECIFICS */
+        #kataSearch { width: 100%; padding: 20px; font-size: 1.5rem; margin-bottom: 20px; border-radius: 10px; }
+        .kata-item { width: 100%; padding: 15px; margin: 5px 0; background: #222; color: white; border: 1px solid #444; text-align: left; font-size: 1.2rem; }
     </style>
 </head>
 <body>
 
     <h1>ISKA JAPAN</h1>
-    <p class="sub-header">INTERNATIONAL SHITO-RYU KARATE</p>
+    <div class="sub">SHITO-RYU KARATE DO</div>
 
     <div class="menu-grid">
-        <button class="menu-btn" onclick="openP('kataPop')">KATA LIBRARY</button>
-        <button class="menu-btn" onclick="openP('tourneyPop')">TOURNAMENTS</button>
-        <button class="menu-btn" onclick="openP('regPop')">REGISTRATION</button>
-        <button class="menu-btn" onclick="openP('aboutPop')">ABOUT</button>
-        <button class="menu-btn" onclick="openP('senseiPop')">INSTRUCTOR</button>
-        <button class="menu-btn" onclick="openP('achievePop')">ACHIEVEMENTS</button>
-        <button class="menu-btn" onclick="openP('beltPop')">BELT SYSTEM</button>
-        <button class="menu-btn" onclick="openP('schedPop')">SCHEDULE</button>
-        <button class="menu-btn" onclick="openP('pricePop')">PRICING</button>
-        <button class="menu-btn" onclick="openP('gearPop')">GEAR SHOP</button>
-        <button class="menu-btn" onclick="openP('faqPop')">FAQ</button>
-        <button class="menu-btn" onclick="openP('contactPop')">CONTACT</button>
+        <button class="menu-btn" onclick="openP('kata')">Kata Library</button>
+        <button class="menu-btn" onclick="openP('tourney')">Tournaments</button>
+        <button class="menu-btn" onclick="openP('reg')">Registration</button>
+        <button class="menu-btn" onclick="openP('about')">About</button>
+        <button class="menu-btn" onclick="openP('sensei')">Instructor</button>
+        <button class="menu-btn" onclick="openP('achieve')">Achievements</button>
+        <button class="menu-btn" onclick="openP('belt')">Belt System</button>
+        <button class="menu-btn" onclick="openP('sched')">Schedule</button>
+        <button class="menu-btn" onclick="openP('price')">Pricing</button>
+        <button class="menu-btn" onclick="openP('shop')">Gear Shop</button>
+        <button class="menu-btn" onclick="openP('faq')">FAQ</button>
+        <button class="menu-btn" onclick="openP('contact')">Contact</button>
     </div>
 
-    <div id="kataPop" class="popup">
-        <div class="popup-content">
-            <button class="close-btn" onclick="closeP('kataPop')">X CLOSE</button>
-            <h2>Kata Library</h2>
-            <input type="text" id="kataSearch" onkeyup="searchK()" placeholder="Search (e.g. Heian Yondan)">
-            <div class="video-box">
-                <iframe id="player" width="100%" height="400" src="https://www.youtube.com/embed/Q968r3U0KlM" frameborder="0" allowfullscreen></iframe>
-            </div>
-            <div id="kataButtons">
-                <button class="kata-item" onclick="play('yMlH5xWn2W4')">Kihon 1-5</button>
-                <button class="kata-item" onclick="play('Q968r3U0KlM')">Heian Shodan</button>
-                <button class="kata-item" onclick="play('V_K34CNNY5M')">Heian Nidan</button>
-                <button class="kata-item" onclick="play('F_0m-NfN8k8')">Heian Sandan</button>
-                <button class="kata-item" onclick="play('XpT60T6_U78')">Heian Yondan</button>
-            </div>
+    <div id="kata" class="popup"><div class="popup-content"><button class="close-btn" onclick="closeP('kata')">X</button><h2>Kata Library</h2>
+        <input type="text" id="kSearch" onkeyup="sk()" placeholder="Search (e.g. Heian Yondan)">
+        <iframe id="vid" width="100%" height="400" src="https://www.youtube.com/embed/Q968r3U0KlM" frameborder="0"></iframe>
+        <div id="kBtns">
+            <button class="kata-item" onclick="pl('yMlH5xWn2W4')">Kihon 1-5</button>
+            <button class="kata-item" onclick="pl('Q968r3U0KlM')">Heian Shodan</button>
+            <button class="kata-item" onclick="pl('V_K34CNNY5M')">Heian Nidan</button>
+            <button class="kata-item" onclick="pl('F_0m-NfN8k8')">Heian Sandan</button>
+            <button class="kata-item" onclick="pl('XpT60T6_U78')">Heian Yondan</button>
         </div>
-    </div>
+    </div></div>
 
-    <div id="tourneyPop" class="popup">
-        <div class="popup-content">
-            <button class="close-btn" onclick="closeP('tourneyPop')">X CLOSE</button>
-            <h2>Tournaments</h2>
-            <p>Next Championship: ISKA World Cup 2026</p>
-            <a href="https://www.sportdata.org" target="_blank" style="color:var(--gold); font-size:2rem;">Click Here for Tournament Site</a>
-        </div>
-    </div>
+    <div id="tourney" class="popup"><div class="popup-content"><button class="close-btn" onclick="closeP('tourney')">X</button><h2>Tournaments</h2><p>View upcoming ISKA events and register here:</p><a href="https://www.sportdata.org" style="color:var(--gold); font-size:2rem;">SportData Registration</a></div></div>
+    
+    <div id="reg" class="popup"><div class="popup-content"><button class="close-btn" onclick="closeP('reg')">X</button><h2>Registration</h2><p>Fill out student forms at the front desk or call (614) 779-2399.</p></div></div>
 
-    <div id="pricePop" class="popup">
-        <div class="popup-content">
-            <button class="close-btn" onclick="closeP('pricePop')">X CLOSE</button>
-            <h2>Pricing Plans</h2>
-            <ul>
-                <li>Basic: $99/month (2 classes/week)</li>
-                <li>Black Belt Club: $149/month (Unlimited)</li>
-            </ul>
-        </div>
-    </div>
+    <div id="about" class="popup"><div class="popup-content"><button class="close-btn" onclick="closeP('about')">X</button><h2>About ISKA</h2><p>International Shito-Ryu Karate Do Association (ISKA) preserves traditional martial arts excellence worldwide.</p></div></div>
 
-    <div id="faqPop" class="popup"><div class="popup-content"><button class="close-btn" onclick="closeP('faqPop')">X</button><h2>FAQ</h2><p>Q: Do you have family discounts?<br>A: Yes! 20% off for the second member.</p></div></div>
+    <div id="sensei" class="popup"><div class="popup-content"><button class="close-btn" onclick="closeP('sensei')">X</button><h2>Chief Instructor</h2><p>Our Dojo is led by experienced Black Belts dedicated to student growth, discipline, and respect.</p></div></div>
+
+    <div id="achieve" class="popup"><div class="popup-content"><button class="close-btn" onclick="closeP('achieve')">X</button><h2>Achievements</h2><ul><li>National Champions 2024</li><li>Global Dojo Excellence Award</li></ul></div></div>
+
+    <div id="belt" class="popup"><div class="popup-content"><button class="close-btn" onclick="closeP('belt')">X</button><h2>Belt System</h2><p>White > Yellow > Orange > Green > Blue > Purple > Brown > Black</p></div></div>
+
+    <div id="sched" class="popup"><div class="popup-content"><button class="close-btn" onclick="closeP('sched')">X</button><h2>Schedule</h2><p>Mon/Wed: 5:00 PM (Youth)<br>Tue/Thu: 6:30 PM (Adults)</p></div></div>
+
+    <div id="price" class="popup"><div class="popup-content"><button class="close-btn" onclick="closeP('price')">X</button><h2>Pricing</h2><p>Memberships start at $99/month. Family discounts available.</p></div></div>
+
+    <div id="shop" class="popup"><div class="popup-content"><button class="close-btn" onclick="closeP('shop')">X</button><h2>Gear Shop</h2><p>Purchase uniforms (Gi), sparring gear, and ISKA apparel at the dojo.</p></div></div>
+
+    <div id="faq" class="popup"><div class="popup-content"><button class="close-btn" onclick="closeP('faq')">X</button><h2>FAQ</h2><p>Q: What age can kids start?<br>A: We accept students from age 5 and up.</p></div></div>
+
+    <div id="contact" class="popup"><div class="popup-content"><button class="close-btn" onclick="closeP('contact')">X</button><h2>Contact</h2><p>Phone: (614) 779-2399<br>Email: usakarate12@gmail.com</p></div></div>
 
     <script>
         function openP(id) { document.getElementById(id).style.display = "block"; }
         function closeP(id) { document.getElementById(id).style.display = "none"; }
-        
-        function play(id) { 
-            document.getElementById('player').src = "https://www.youtube.com/embed/" + id + "?autoplay=1"; 
-        }
-
-        function searchK() {
-            let input = document.getElementById('kataSearch').value.toLowerCase();
+        function pl(id) { document.getElementById('vid').src = "https://www.youtube.com/embed/" + id + "?autoplay=1"; }
+        function sk() {
+            let input = document.getElementById('kSearch').value.toLowerCase();
             let items = document.getElementsByClassName('kata-item');
             for (let i = 0; i < items.length; i++) {
                 items[i].style.display = items[i].innerText.toLowerCase().includes(input) ? "block" : "none";
