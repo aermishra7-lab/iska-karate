@@ -1,129 +1,149 @@
-<div id="kata" class="page">
-  <div class="content">
-    <section class="section">
-      <h2>Official Kata Library</h2>
-      
-      <div style="margin-bottom: 2rem; text-align: center;">
-        <input type="text" id="kataSearch" onkeyup="filterKatas()" placeholder="Search for a Kata (e.g. Heian, Bassai...)" 
-               style="width: 80%; max-width: 400px; padding: 12px; border-radius: 25px; border: 2px solid #2563eb; background: #1a1a1a; color: white;">
-      </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ISKA Digital Portal</title>
+    <style>
+        :root { --gold: #fbbf24; --blue: #2563eb; --dark: #000000; --glass: rgba(30, 30, 30, 0.98); }
+        * { box-sizing: border-box; font-family: 'Arial Black', sans-serif; }
+        body { background: var(--dark); color: white; margin: 0; padding: 20px; text-align: center; }
 
-      <div style="position: relative; padding-bottom: 56.25%; height: 0; margin-bottom: 30px; border-radius: 12px; overflow: hidden; border: 3px solid #2563eb;">
-        <iframe id="kataPlayer" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" src="https://www.youtube.com/embed/Q968r3U0KlM" frameborder="0" allowfullscreen></iframe>
-      </div>
+        h1 { color: var(--gold); font-size: 3rem; margin-top: 40px; }
+        .sub-header { color: var(--blue); letter-spacing: 2px; margin-bottom: 40px; }
 
-      <div class="grid" id="kataGrid">
-        <div class="card kata-folder">
-          <h3>Beginner</h3>
-          <button onclick="playV('yMlH5xWn2W4')" class="cta-button kata-btn">Kihon Kata 1-5</button>
-          <button onclick="playV('Q968r3U0KlM')" class="cta-button kata-btn">Heian Shodan</button>
-          <button onclick="playV('V_K34CNNY5M')" class="cta-button kata-btn">Heian Nidan</button>
+        /* MAIN MENU GRID */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 15px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .menu-btn {
+            background: #1a1a1a;
+            border: 2px solid #333;
+            color: white;
+            padding: 25px 10px;
+            border-radius: 15px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .menu-btn:hover { border-color: var(--blue); background: #222; transform: scale(1.02); }
+
+        /* POPUP (MODAL) STYLING */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--glass);
+            z-index: 2000;
+            overflow-y: auto;
+            padding: 40px 20px;
+        }
+
+        .popup-content { max-width: 900px; margin: 0 auto; text-align: left; }
+        
+        .close-btn {
+            position: sticky; top: 0; float: right;
+            background: red; color: white; border: none;
+            padding: 15px 25px; font-size: 1.5rem; border-radius: 10px; cursor: pointer;
+        }
+
+        /* KATA LIBRARY BOXES */
+        #kataSearch {
+            width: 100%; padding: 20px; font-size: 1.5rem; 
+            border-radius: 10px; border: 3px solid var(--blue); margin-bottom: 20px;
+        }
+        .video-box { border: 5px solid var(--gold); border-radius: 15px; overflow: hidden; margin-bottom: 20px; }
+        .kata-list button { 
+            display: block; width: 100%; padding: 15px; margin: 5px 0; 
+            background: #333; color: white; border: none; border-radius: 5px; text-align: left;
+        }
+
+        /* TEXT SIZES */
+        p, li { font-size: 1.3rem; line-height: 1.6; }
+        h2 { color: var(--gold); font-size: 2.5rem; }
+    </style>
+</head>
+<body>
+
+    <h1>ISKA JAPAN</h1>
+    <p class="sub-header">INTERNATIONAL SHITO-RYU KARATE</p>
+
+    <div class="menu-grid">
+        <button class="menu-btn" onclick="openP('kataPop')">KATA LIBRARY</button>
+        <button class="menu-btn" onclick="openP('tourneyPop')">TOURNAMENTS</button>
+        <button class="menu-btn" onclick="openP('regPop')">REGISTRATION</button>
+        <button class="menu-btn" onclick="openP('aboutPop')">ABOUT</button>
+        <button class="menu-btn" onclick="openP('senseiPop')">INSTRUCTOR</button>
+        <button class="menu-btn" onclick="openP('achievePop')">ACHIEVEMENTS</button>
+        <button class="menu-btn" onclick="openP('beltPop')">BELT SYSTEM</button>
+        <button class="menu-btn" onclick="openP('schedPop')">SCHEDULE</button>
+        <button class="menu-btn" onclick="openP('pricePop')">PRICING</button>
+        <button class="menu-btn" onclick="openP('gearPop')">GEAR SHOP</button>
+        <button class="menu-btn" onclick="openP('faqPop')">FAQ</button>
+        <button class="menu-btn" onclick="openP('contactPop')">CONTACT</button>
+    </div>
+
+    <div id="kataPop" class="popup">
+        <div class="popup-content">
+            <button class="close-btn" onclick="closeP('kataPop')">X CLOSE</button>
+            <h2>Kata Library</h2>
+            <input type="text" id="kataSearch" onkeyup="searchK()" placeholder="Search (e.g. Heian Yondan)">
+            <div class="video-box">
+                <iframe id="player" width="100%" height="400" src="https://www.youtube.com/embed/Q968r3U0KlM" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <div id="kataButtons">
+                <button class="kata-item" onclick="play('yMlH5xWn2W4')">Kihon 1-5</button>
+                <button class="kata-item" onclick="play('Q968r3U0KlM')">Heian Shodan</button>
+                <button class="kata-item" onclick="play('V_K34CNNY5M')">Heian Nidan</button>
+                <button class="kata-item" onclick="play('F_0m-NfN8k8')">Heian Sandan</button>
+                <button class="kata-item" onclick="play('XpT60T6_U78')">Heian Yondan</button>
+            </div>
         </div>
-        <div class="card kata-folder">
-          <h3>Intermediate</h3>
-          <button onclick="playV('F_0m-NfN8k8')" class="cta-button kata-btn">Heian Sandan</button>
-          <button onclick="playV('XpT60T6_U78')" class="cta-button kata-btn">Heian Yondan</button>
-          <button onclick="playV('66Gmhx9Zrv4')" class="cta-button kata-btn">Bassai Dai</button>
+    </div>
+
+    <div id="tourneyPop" class="popup">
+        <div class="popup-content">
+            <button class="close-btn" onclick="closeP('tourneyPop')">X CLOSE</button>
+            <h2>Tournaments</h2>
+            <p>Next Championship: ISKA World Cup 2026</p>
+            <a href="https://www.sportdata.org" target="_blank" style="color:var(--gold); font-size:2rem;">Click Here for Tournament Site</a>
         </div>
-        <div class="card kata-folder">
-          <h3>Advanced</h3>
-          <button onclick="playV('70ZSoFH26Kw')" class="cta-button kata-btn">Aoyagi</button>
-          <button onclick="playV('24oTjB0f4C4')" class="cta-button kata-btn">Matsukaze</button>
-          <button onclick="playV('YMr7gAQKOTE')" class="cta-button kata-btn">Seienchin</button>
+    </div>
+
+    <div id="pricePop" class="popup">
+        <div class="popup-content">
+            <button class="close-btn" onclick="closeP('pricePop')">X CLOSE</button>
+            <h2>Pricing Plans</h2>
+            <ul>
+                <li>Basic: $99/month (2 classes/week)</li>
+                <li>Black Belt Club: $149/month (Unlimited)</li>
+            </ul>
         </div>
-        <div class="card kata-folder">
-          <h3>Black Belt</h3>
-          <button onclick="playV('NwYhpb9ZESI')" class="cta-button kata-btn">Unshu</button>
-          <button onclick="playV('uC2-qE8z_kM')" class="cta-button kata-btn">Nipaipo</button>
-          <button onclick="playV('l6vXn6V_y_0')" class="cta-button kata-btn">Kururunfa</button>
-        </div>
-      </div>
-    </section>
-  </div>
-</div>
+    </div>
 
-<div id="register" class="page">
-  <div class="content">
-    <section class="section">
-      <h2>Registration</h2>
-      <div class="card" style="max-width: 500px; margin: 0 auto; border-top: 4px solid #fbbf24;">
-        <form id="regForm">
-          <input type="text" id="regName" placeholder="Full Name" required style="width:100%; margin-bottom:10px; padding:10px;">
-          <select id="regLoc" style="width:100%; margin-bottom:10px; padding:10px;">
-            <option value="Columbus">Columbus HQ</option>
-            <option value="Reynoldsburg">Reynoldsburg</option>
-            <option value="Cincinnati">Cincinnati</option>
-            <option value="Fairfield">Fairfield</option>
-            <option value="Florence">Florence, KY</option>
-          </select>
-          <input type="tel" id="regPhone" placeholder="Phone Number" required style="width:100%; margin-bottom:10px; padding:10px;">
-          <button type="button" onclick="handleRegistration()" class="submit-button" style="width:100%;">Send Registration</button>
-        </form>
-        <p id="form-status" style="display:none; color:#fbbf24; text-align:center; margin-top:10px;">Sent! Osu.</p>
-      </div>
-    </section>
-  </div>
-</div>
+    <div id="faqPop" class="popup"><div class="popup-content"><button class="close-btn" onclick="closeP('faqPop')">X</button><h2>FAQ</h2><p>Q: Do you have family discounts?<br>A: Yes! 20% off for the second member.</p></div></div>
 
-<div id="contact" class="page">
-  <div class="content">
-    <section class="section">
-      <h2>Dojo Locations</h2>
-      <div class="grid">
-        <div class="card"><h3>Columbus</h3><p>1575 E Dublin Granville Rd</p><a href="https://maps.google.com/?q=1575+E+Dublin+Granville+Rd+Columbus+OH" target="_blank" class="cta-button">GPS</a></div>
-        <div class="card"><h3>Reynoldsburg</h3><p>6220 E Livingston Ave</p><a href="https://maps.google.com/?q=6220+E+Livingston+Ave+Reynoldsburg+OH" target="_blank" class="cta-button">GPS</a></div>
-        <div class="card"><h3>Cincinnati</h3><p>7198 Pippin Rd</p><a href="https://maps.google.com/?q=7198+Pippin+Rd+Cincinnati+OH" target="_blank" class="cta-button">GPS</a></div>
-        <div class="card"><h3>Fairfield</h3><p>6435 Dixie Hwy</p><a href="https://maps.google.com/?q=6435+Dixie+Hwy+Fairfield+OH" target="_blank" class="cta-button">GPS</a></div>
-        <div class="card"><h3>Florence</h3><p>7705 US-42, KY</p><a href="https://maps.google.com/?q=7705+US-42+Florence+KY" target="_blank" class="cta-button">GPS</a></div>
-      </div>
-    </section>
-  </div>
-</div>
+    <script>
+        function openP(id) { document.getElementById(id).style.display = "block"; }
+        function closeP(id) { document.getElementById(id).style.display = "none"; }
+        
+        function play(id) { 
+            document.getElementById('player').src = "https://www.youtube.com/embed/" + id + "?autoplay=1"; 
+        }
 
-<div id="about" class="page"><div class="content"><section class="section"><h2>About ISKA</h2><p>Traditional Shito Ryu lineage under Kenwa Mabuni.</p></section></div></div>
-<div id="instructor" class="page"><div class="content"><section class="section"><h2>Instructors</h2><p>Master Jogendra Paswan (8th Dan)</p></section></div></div>
-<div id="belts" class="page"><div class="content"><section class="section"><h2>Belt System</h2><p>White to Black Belt Progression.</p></section></div></div>
-<div id="training" class="page"><div class="content"><section class="section"><h2>Schedule</h2><p>Youth: 5:30pm | Adults: 6:30pm</p></section></div></div>
-<div id="pricing" class="page"><div class="content"><section class="section"><h2>Pricing</h2><p>Monthly: $125 - $165</p></section></div></div>
-<div id="achievements" class="page"><div class="content"><section class="section"><h2>Achievements</h2><p>Regional Champions & Certified Dan Ranks.</p></section></div></div>
-<div id="tournament" class="page"><div class="content"><section class="section"><h2>Tournaments</h2><p>Next Event: ISKA Open.</p></section></div></div>
-<div id="gallery" class="page"><div class="content"><section class="section"><h2>Gallery</h2><p>Dojo highlights and ceremonies.</p></section></div></div>
-
-<script>
-  // Filter Kata Buttons via Search Box
-  function filterKatas() {
-    let input = document.getElementById('kataSearch').value.toLowerCase();
-    let buttons = document.getElementsByClassName('kata-btn');
-    for (let i = 0; i < buttons.length; i++) {
-      if (buttons[i].innerText.toLowerCase().includes(input)) {
-        buttons[i].style.display = "";
-      } else {
-        buttons[i].style.display = "none";
-      }
-    }
-  }
-
-  // Play Video
-  function playV(id) {
-    document.getElementById('kataPlayer').src = "https://www.youtube.com/embed/" + id + "?autoplay=1";
-  }
-
-  // Dual Registration Trigger
-  function handleRegistration() {
-    const name = document.getElementById('regName').value;
-    const loc = document.getElementById('regLoc').value;
-    const phone = document.getElementById('regPhone').value;
-    if(!name || !phone) { alert("Please enter name and phone."); return; }
-
-    const msg = `ISKA Registration:%0AName: ${name}%0ALocation: ${loc}%0APhone: ${phone}`;
-    
-    // Email
-    window.open(`mailto:usakarate12@gmail.com?subject=New Student&body=${msg}`);
-    
-    // SMS
-    setTimeout(() => {
-      window.location.href = `sms:6147792399&body=${msg}`;
-      document.getElementById('form-status').style.display = 'block';
-    }, 1000);
-  }
-</script>
+        function searchK() {
+            let input = document.getElementById('kataSearch').value.toLowerCase();
+            let items = document.getElementsByClassName('kata-item');
+            for (let i = 0; i < items.length; i++) {
+                items[i].style.display = items[i].innerText.toLowerCase().includes(input) ? "block" : "none";
+            }
+        }
+    </script>
+</body>
+</html>
